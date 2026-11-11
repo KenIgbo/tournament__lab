@@ -118,7 +118,7 @@ def cal_goal_diff(team_id, fixtures):
 
 def generate_standings(teams, fixtures):
     if not fixtures:
-        print("Standings not available")
+        print("No Standings for this Tournament yet")
         return
 
     standings = [{"name": team["name"], 

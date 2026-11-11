@@ -21,12 +21,9 @@ def record_results(fixtures):
             if fixture["status"] == "pending":
 
                 home_score = input("Enter home score: ")
-                if not validate_score(home_score):
-                    print("Score must be a number from 0 upwards\n")
-                    return
-
                 away_score = input("Enter away score: ")
-                if not validate_score(away_score):
+
+                if not validate_score(home_score) or not validate_score(away_score):
                     print("Score must be a number from 0 upwards\n")
                     return
 
