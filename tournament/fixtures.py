@@ -33,6 +33,15 @@ def get_team_name(teams, team_id):
     return name
 
 
+def get_team_score(fixtures, fix_id):
+    scores = None
+    for fixture in fixtures:
+        if fixture["id"] == fix_id:
+            scores = (fixture["home_score"], fixture["away_score"])
+
+    return scores
+
+
 def list_fixtures(fixtures):
     if len(fixtures) == 0:
         print("No fixtures available\n")
@@ -40,7 +49,7 @@ def list_fixtures(fixtures):
 
     headings = [["ID", "TEAMS", "STATUS"]]
 
-    bodies = [[fixture["id"], f'{get_team_name(teams, fixture["home_id"])} - {get_team_name(teams, fixture["away_id"])}', fixture["status"]] for fixture in fixtures]
+    bodies = [[fixture["id"], f'{get_team_name(teams, fixture["home_id"])} {get_team_score(fixtures, fixture["id"])[0]} - {get_team_score(fixtures, fixture["id"])[1]} {get_team_name(teams, fixture["away_id"])}', fixture["status"]] for fixture in fixtures]
 
     headings.extend(bodies)
 
