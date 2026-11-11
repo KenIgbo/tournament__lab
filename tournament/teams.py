@@ -11,18 +11,18 @@ def gen_team_id(teams):
 
 
 def register_team(teams):
+    if len(teams) >= 8:
+        print("Maximum number of teams already reached! 8 required\n")
+        return
+
     if fixtures:
-        print("Cannot register teams after fixtures have been generated\n")
+        print("Cannot register teams after generating fixtures\n")
         return
 
     name = input("Enter team name: ").strip()
 
     if len(name) < 2 or len(name) > 30:
         print("Team name must be between 2 and 30 characters\n")
-        return
-
-    if len(teams) >= 8:
-        print("Maximum of 8 teams required for this tournament\n")
         return
 
     for team in teams:

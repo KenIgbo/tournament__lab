@@ -1,13 +1,8 @@
 from tournament.teams import register_team
-
 from tournament.fixtures import gen_fixtures, list_fixtures
-
 from tournament.storage import load_tournament, teams, fixtures
-
 from tournament.results import record_results
-
 from tournament.standings import generate_standings
-
 from tournament.simulation import simulate_demo_fixtures
 
 
@@ -38,53 +33,52 @@ def recovery_menu():
             print("Invalid option.")
 
 
-status = load_tournament(teams, fixtures)
-
-while status == "invalid":
-    choice = recovery_menu()
-
-    if choice == "retry":
-        status = load_tournament(teams, fixtures)
-
-    elif choice == "new":
-        status = "new"
-
-    elif choice == "exit":
-        exit()
-
-
 def main():
-    print(f'\n{"="*50} TOURNAMENT LAB {"="*50}')
-    print("1. Register teams\n2. Generate fixtures\n3. View fixtures\n4. Record results\n5. View standings\n6. Simulate standings\n7. Exit")
+    status = load_tournament(teams, fixtures)
 
-    option = input("\nSelect an option: ").strip()
-    if option == "1":
-        register_team(teams)
+    while status == "invalid":
+        choice = recovery_menu()
 
-    elif option == "2":
-        gen_fixtures(teams)
+        if choice == "retry":
+            status = load_tournament(teams, fixtures)
 
-    elif option == "3":
-        list_fixtures(fixtures)
+        elif choice == "new":
+            status = "new"
 
-    elif option == "4":
-        record_results(fixtures)
+        elif choice == "exit":
+            return
 
-    elif option == "5":
-        generate_standings(teams, fixtures)
-        
-    elif option == "6":
-        demo_fixtures = simulate_demo_fixtures(fixtures)
-        generate_standings(teams, demo_fixtures)
+    while True:
+        print(f'\n{"="*50} TOURNAMENT LAB {"="*50}')
+        print("1. Register teams\n2. Generate fixtures\n3. View fixtures\n4. Record results\n5. View standings\n6. Simulate standings\n7. Exit")
 
-    elif option == "7":
-        exit()
-    
-    else:
-        print("Unsupported option")
+        option = input("\nSelect an option: ").strip()
+
+        if option == "1":
+            register_team(teams)
+
+        elif option == "2":
+            gen_fixtures(teams)
+
+        elif option == "3":
+            list_fixtures(fixtures)
+
+        elif option == "4":
+            record_results(fixtures)
+
+        elif option == "5":
+            generate_standings(teams, fixtures)
+
+        elif option == "6":
+            demo_fixtures = simulate_demo_fixtures(fixtures)
+            generate_standings(teams, demo_fixtures)
+
+        elif option == "7":
+            return
+
+        else:
+            print("Unsupported option")
 
 
-load_tournament(teams, fixtures)
-
-while True:
+if __name__ == "__main__":
     main()
